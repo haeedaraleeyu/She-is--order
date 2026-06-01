@@ -1,5 +1,37 @@
 import { useState, useEffect, useRef } from "react";
 
+const EMAILJS_SERVICE_ID = "service_uwkdxmj";
+const EMAILJS_TEMPLATE_ID = "template_p69k9ij";
+const EMAILJS_PUBLIC_KEY = "So9LgSzB6IdIDIJcy";
+
+const sendOrderEmail = async (orderData) => {
+  try {
+    const res = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        service_id: EMAILJS_SERVICE_ID,
+        template_id: EMAILJS_TEMPLATE_ID,
+        user_id: EMAILJS_PUBLIC_KEY,
+        template_params: {
+          name: orderData.name,
+          handle: orderData.handle || "—",
+          phone: orderData.phone,
+          colorway: orderData.colorway,
+          size: orderData.size,
+          shirtQty: orderData.shirtQty,
+          trouserQty: orderData.trouserQty,
+          total: "₦" + orderData.total.toLocaleString("en-NG"),
+          address: orderData.address,
+        },
+      }),
+    });
+    return res.ok;
+  } catch {
+    return false;
+  }
+};
+
 const COLORWAYS = ["Warm Cream", "Charcoal Earth", "Tobacco Road", "Rust Memory"];
 const SIZES = ["XS", "S", "M", "L", "XL", "XXL"];
 const SHIRT_PRICE = 13000;
@@ -148,13 +180,14 @@ export default function App() {
     reader.readAsDataURL(file);
   };
 
-  const submitOrder = () => {
+  const submitOrder = async () => {
     if (!form.proofFile) { showToast("Please upload payment proof."); return; }
     const order = {
       ...form, id: Date.now(), date: new Date().toLocaleDateString("en-GB"),
       total, status: "Pending",
     };
     saveOrders([order, ...orders]);
+    await sendOrderEmail(order);
     setStep(5);
   };
 
