@@ -1,17 +1,18 @@
-import { useState, useEffect, useRef } from “react”;
-import { createClient } from “@supabase/supabase-js”;
+import { useState, useEffect, useRef } from "react";
+import { createClient } from "@supabase/supabase-js";
+const SUPABASE_URL = "https://vsorhflhpxpuvlhpspkx.supabase.co";
 
-const SUPABASE_URL = “https://vsorhflhpxpuvlhpspkx.supabase.co”;
-const SUPABASE_KEY = “eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZzb3JoZmxocHhwdXZsaHBzcGt4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyNjU0NjIsImV4cCI6MjA5NTg0MTQ2Mn0.dxzzlZeBDgx073449M-qTXZhgH0kRd5cqCDom31zMRY”;
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZzb3JoZmxocHhwdXZsaHBzcGt4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODAyNjU0NjIsImV4cCI6MjA5NTg0MTQ2Mn0.dxzzlZeBDgx073449M-qTXZhgH0kRd5cqCDom31zMR
+    ";
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-const EMAILJS_SERVICE_ID = “service_uwkdxmj”;
-const EMAILJS_TEMPLATE_ID = “template_p69k9ij”;
-const EMAILJS_PUBLIC_KEY = “So9LgSzB6IdIDIJcy”;
+const EMAILJS_SERVICE_ID = "service_uwkdxmj";
+const EMAILJS_TEMPLATE_ID = "template_p69k9ij";
+const EMAILJS_PUBLIC_KEY = "So9LgSzB6IdIDIJcy";
 
 const sendOrderEmail = async (orderData) => {
 try {
-const res = await fetch(“https://api.emailjs.com/api/v1.0/email/send”, {
+const res = await fetch(https://api.emailjs.com/api/v1.0/email/send”, {
 method: “POST”,
 headers: { “Content-Type”: “application/json” },
 body: JSON.stringify({
